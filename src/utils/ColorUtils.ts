@@ -20,8 +20,11 @@ export const ColorMapFromInteractionState : MapStateInterpolatedStyles = {
 };
 
 const getFillColorBasedFromInteractionStateAndNumericData = (interactionState : MapInteractionState, numericData : number) => {
+    if (numericData < 0) {
+        return DEFAULT_COLOR;
+    }
+    
     let scale : ScaleLinear<string, string> = ColorMapFromInteractionState[interactionState];
-    console.log(scale(numericData) ? scale(numericData) : DEFAULT_COLOR);
     return scale(numericData) ? scale(numericData) : DEFAULT_COLOR;
 }
 

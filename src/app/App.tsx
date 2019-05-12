@@ -1,18 +1,16 @@
 import React from 'react';
 import './App.css';
-import Map from './map/components/Map';
-import Sidebar from './sidebar/components/Sidebar';
-
-
+import MapContainer from './map/containers/MapContainer';
+import SidebarContainer from './sidebar/containers/SidebarContainer';
 
 export default class App extends React.Component {
 
   render() {
     return (
       <div className="app">
-        <Sidebar></Sidebar>
+        <SidebarContainer></SidebarContainer>
         <main className="app-main">
-          <Map></Map>
+          <MapContainer></MapContainer>
         </main>
       </div>
     );

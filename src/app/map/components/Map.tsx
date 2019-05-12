@@ -5,11 +5,11 @@ import {
     Geographies,
     Geography
 } from "react-simple-maps";
-import events from '../../../data/events.json';
-import world from '../../../data/world-50m.json';
+import world from './world-50m.json';
 import { GeoProjection } from 'd3-geo';
 import ColorUtils, { MapInteractionState } from '../../../utils/ColorUtils';
 import ReactTooltip from "react-tooltip"
+import MapProps from './MapProps.js';
 
 const wrapperStyles : React.CSSProperties = {
     flexDirection : 'column',
@@ -18,14 +18,22 @@ const wrapperStyles : React.CSSProperties = {
     backgroundColor: "#3498db"
 }
 
-export default class Map extends React.Component {
+export default class Map extends React.Component<MapProps> {
     getFillColorBasedOnState( interactionState : MapInteractionState, numericData : number ) {
         return ColorUtils.getFillColorBasedFromInteractionStateAndNumericData(interactionState, numericData);
     }
 
-    render() {
-        let eventsData : any = events;
+    getColorValueFromSelectedData(interactionState : MapInteractionState, geographyId : string) {
+        let { selectedGuestData } = this.props;
+        let numericValue = -1;
+        if (selectedGuestData) {
+            numericValue = selectedGuestData[geographyId];
+        }
+        return this.getFillColorBasedOnState(interactionState, numericValue);
+    }
 
+    render() {
+        
         return (
             <div style={wrapperStyles}>
                 <ComposableMap
@@ -42,7 +50,7 @@ export default class Map extends React.Component {
                         overflow: "hidden"
                     }}>
                     <ZoomableGroup center={[0,20]} disablePanning>
-                        <Geographies geography={world}>
+                        <Geographies geography={world} disableOptimization>
                         {(geographies : any[], projection : GeoProjection) => geographies.map((geography, i) =>  (
                             <Geography
                                 key={i}
@@ -51,19 +59,19 @@ export default class Map extends React.Component {
                                 projection={projection}
                                 style={{
                                     default: {
-                                        fill: this.getFillColorBasedOnState('default', eventsData[geography.id]),
+                                        fill: this.getColorValueFromSelectedData('default', geography.id),
                                         stroke: "#607D8B",
                                         strokeWidth: 0.5,
                                         outline: "none",
                                     },
                                     hover: {
-                                        fill: this.getFillColorBasedOnState('hover', eventsData[geography.id]),
+                                        fill: this.getColorValueFromSelectedData('hover', geography.id),
                                         stroke: "#607D8B",
                                         strokeWidth: 0.5,
                                         outline: "none",
                                     },
                                     pressed: {
-                                        fill: this.getFillColorBasedOnState('pressed', eventsData[geography.id]),
+                                        fill: this.getColorValueFromSelectedData('pressed', geography.id),
                                         stroke: "#607D8B",
                                         strokeWidth: 0.75,
                                         outline: "none",
