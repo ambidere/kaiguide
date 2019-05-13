@@ -51,8 +51,10 @@ export default class Map extends React.Component<MapProps> {
                     }}
                     style={{
                         zoom: spring(zoomDegree, {stiffness: 210, damping: 20}),
-                        x: spring(center[0], {stiffness: 210, damping: 20}),
-                        y: spring(center[1], {stiffness: 210, damping: 20}),
+                        // x: spring(center[0], {stiffness: 210, damping: 20}),
+                        // y: spring(center[1], {stiffness: 210, damping: 20}),
+                        x: center[0],
+                        y: center[1]
                     }}>
                     {({zoom,x,y}) => (
                         <ComposableMap
