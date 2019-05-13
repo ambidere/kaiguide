@@ -10,6 +10,7 @@ import { GeoProjection } from 'd3-geo';
 import ColorUtils, { MapInteractionState } from '../../../utils/ColorUtils';
 import ReactTooltip from "react-tooltip"
 import MapProps from './MapProps.js';
+import { Motion, spring } from "react-motion"
 
 const wrapperStyles : React.CSSProperties = {
     flexDirection : 'column',
@@ -32,57 +33,75 @@ export default class Map extends React.Component<MapProps> {
         return this.getFillColorBasedOnState(interactionState, numericValue);
     }
 
+    onMoveEnd(newCenter : [number, number]) {
+        let { setCenter } = this.props;
+        setCenter(newCenter);
+        console.log(newCenter)
+    }
+
     render() {
-        let { zoomDegree } = this.props;
+        let { zoomDegree, center } = this.props;
         return (
             <div style={wrapperStyles}>
-                <ComposableMap
-                    projectionConfig={{
-                        scale: 205,
-                        rotation: [-11,0,0],
+                <Motion
+                    defaultStyle={{
+                        zoom: 1,
+                        x: 0,
+                        y: 20,
                     }}
-                    width={980}
-                    height={600}
                     style={{
-                        width: "100%",
-                        height: "auto",
-                        backgroundColor: "#3498db",
-                        overflow: "hidden"
+                        zoom: spring(zoomDegree, {stiffness: 210, damping: 20}),
+                        x: spring(center[0], {stiffness: 210, damping: 20}),
+                        y: spring(center[1], {stiffness: 210, damping: 20}),
                     }}>
-                    <ZoomableGroup center={[0,20]} zoom={zoomDegree} disablePanning={zoomDegree === 1}>
-                        <Geographies geography={world} disableOptimization>
-                        {(geographies : any[], projection : GeoProjection) => geographies.map((geography, i) =>  (
-                            <Geography
-                                onClick={() => { console.log(geography) }}
-                                key={i}
-                                data-tip={geography.properties.name}
-                                geography={geography}
-                                projection={projection}
-                                style={{
-                                    default: {
-                                        fill: this.getColorValueFromSelectedData('default', geography.id),
-                                        stroke: "#607D8B",
-                                        strokeWidth: 0.5,
-                                        outline: "none",
-                                    },
-                                    hover: {
-                                        fill: this.getColorValueFromSelectedData('hover', geography.id),
-                                        stroke: "#607D8B",
-                                        strokeWidth: 0.5,
-                                        outline: "none",
-                                    },
-                                    pressed: {
-                                        fill: this.getColorValueFromSelectedData('pressed', geography.id),
-                                        stroke: "#607D8B",
-                                        strokeWidth: 0.75,
-                                        outline: "none",
-                                    },
-                                }}
-                            />
-                        ))}
-                        </Geographies>
-                    </ZoomableGroup>
-                </ComposableMap>
+                    {({zoom,x,y}) => (
+                        <ComposableMap
+                            projectionConfig={{
+                                scale: 205
+                            }}
+                            width={980}
+                            height={600}
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                backgroundColor: "#3498db"
+                            }}>
+                            <ZoomableGroup center={[x, y]} zoom={zoom} disablePanning={zoomDegree === 1} onMoveEnd={this.onMoveEnd.bind(this)}>
+                                <Geographies geography={world} disableOptimization>
+                                {(geographies : any[], projection : GeoProjection) => geographies.map((geography, i) =>  (
+                                    <Geography
+                                        onClick={() => { console.log(geography) }}
+                                        key={i}
+                                        data-tip={geography.properties.name}
+                                        geography={geography}
+                                        projection={projection}
+                                        style={{
+                                            default: {
+                                                fill: this.getColorValueFromSelectedData('default', geography.id),
+                                                stroke: "#607D8B",
+                                                strokeWidth: 0.5,
+                                                outline: "none",
+                                            },
+                                            hover: {
+                                                fill: this.getColorValueFromSelectedData('hover', geography.id),
+                                                stroke: "#607D8B",
+                                                strokeWidth: 0.5,
+                                                outline: "none",
+                                            },
+                                            pressed: {
+                                                fill: this.getColorValueFromSelectedData('pressed', geography.id),
+                                                stroke: "#607D8B",
+                                                strokeWidth: 0.75,
+                                                outline: "none",
+                                            },
+                                        }}
+                                    />
+                                ))}
+                                </Geographies>
+                            </ZoomableGroup>
+                        </ComposableMap>
+                    )}
+                </Motion>
                 <ReactTooltip></ReactTooltip>
             </div>
         );

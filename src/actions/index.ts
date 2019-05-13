@@ -5,18 +5,26 @@ import { GuestsData } from "../objects/GuestsData";
 export enum AppActionTypes {
     SELECT_GUEST = "SELECT_GUEST",
     ZOOM_IN = "ZOOM_IN",
-    ZOOM_OUT = "ZOOM_OUT"
+    ZOOM_OUT = "ZOOM_OUT",
+    SET_CENTER = "SET_CENTER",
+    RESET_ZOOM = "RESET_ZOOM",
 }
 
 export interface SelectGuestAction extends Action<typeof AppActionTypes.SELECT_GUEST> {
     payload : GuestsData
 }
 
+export interface SetCenterAction extends Action<typeof AppActionTypes.SET_CENTER> {
+    payload : [number, number]
+}
+
 export interface ZoomInAction extends Action<typeof AppActionTypes.ZOOM_IN> {}
 
 export interface ZoomOutAction extends Action<typeof AppActionTypes.ZOOM_OUT> {}
 
-export type AppActions = SelectGuestAction | ZoomInAction | ZoomOutAction;
+export interface ResetZoomAction extends Action<typeof AppActionTypes.RESET_ZOOM> {}
+
+export type AppActions = SelectGuestAction | ZoomInAction | ZoomOutAction | ResetZoomAction | SetCenterAction;
 
 export function selectGuest(guest : GuestsData) : SelectGuestAction {
     return {
@@ -51,6 +59,19 @@ export function zoomIn() : ZoomInAction {
 export function zoomOut() : ZoomOutAction {
     return {
         type : AppActionTypes.ZOOM_OUT
+    }
+}
+
+export function resetZoom() : ResetZoomAction {
+    return {
+        type : AppActionTypes.RESET_ZOOM
+    }
+}
+
+export function setCenter(center : [number, number]) : SetCenterAction {
+    return {
+        type : AppActionTypes.SET_CENTER,
+        payload : center
     }
 }
 

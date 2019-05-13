@@ -2,5 +2,7 @@ import { GuestsData } from "../../../objects/GuestsData";
 
 export default interface MapProps {
     selectedGuestData? : GuestsData,
-    zoomDegree : number
+    zoomDegree : number,
+    center: [number, number],
+    setCenter : (center : [number, number]) => void
 }

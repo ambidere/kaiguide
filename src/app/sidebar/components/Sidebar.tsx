@@ -12,7 +12,7 @@ export default class Sidebar extends Component<SidebarProps> {
                 <h3>Kaiguide</h3>
                 <ListGroup>
                     <ListGroup.Item>
-                        <Button onClick={() => loadMapData('wasuta')} block>わーすた</Button>
+                        <Button onClick={() => loadMapData('wasuta')} block variant="link">わーすた</Button>
                     </ListGroup.Item>
                 </ListGroup>
             </aside>

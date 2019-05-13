@@ -8,12 +8,14 @@ import { GuestsData } from '../objects/GuestsData';
 
 export interface AppState {
   selectedGuestData : GuestsData | null,
-  zoomDegree : number
+  zoomDegree : number,
+  center : [number, number]
 }
 
 const initialState : AppState = {
   selectedGuestData : null,
-  zoomDegree : 3
+  zoomDegree : 1,
+  center : [0, 20]
 }
 
 const appReducer = (state = initialState, action : AppActions) : AppState => {
@@ -24,6 +26,10 @@ const appReducer = (state = initialState, action : AppActions) : AppState => {
         return {...state, zoomDegree : state.zoomDegree < 6 ? state.zoomDegree + 0.5 : state.zoomDegree}
       case AppActionTypes.ZOOM_OUT:
         return {...state, zoomDegree : state.zoomDegree > 1 ? state.zoomDegree - 0.5 : state.zoomDegree}
+      case AppActionTypes.SET_CENTER:
+        return {...state, center : action.payload}
+      case AppActionTypes.RESET_ZOOM:
+        return {...state, zoomDegree : 1, center : [0,20]}
       default:
         return state
     }
