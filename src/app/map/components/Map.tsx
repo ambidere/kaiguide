@@ -33,7 +33,7 @@ export default class Map extends React.Component<MapProps> {
     }
 
     render() {
-        
+        let { zoomDegree } = this.props;
         return (
             <div style={wrapperStyles}>
                 <ComposableMap
@@ -49,10 +49,11 @@ export default class Map extends React.Component<MapProps> {
                         backgroundColor: "#3498db",
                         overflow: "hidden"
                     }}>
-                    <ZoomableGroup center={[0,20]} disablePanning>
+                    <ZoomableGroup center={[0,20]} zoom={zoomDegree} disablePanning={zoomDegree === 1}>
                         <Geographies geography={world} disableOptimization>
                         {(geographies : any[], projection : GeoProjection) => geographies.map((geography, i) =>  (
                             <Geography
+                                onClick={() => { console.log(geography) }}
                                 key={i}
                                 data-tip={geography.properties.name}
                                 geography={geography}

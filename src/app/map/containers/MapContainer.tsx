@@ -9,7 +9,8 @@ const mapStateToProps = (state : AppState) : Partial<MapProps> => {
     console.log("STATE")
     console.log(state.selectedGuestData)
     return {
-        selectedGuestData : state.selectedGuestData
+        selectedGuestData : state.selectedGuestData,
+        zoomDegree : state.zoomDegree
     }
 }
 

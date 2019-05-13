@@ -1,5 +1,6 @@
 import { GuestsData } from "../../../objects/GuestsData";
 
 export default interface MapProps {
-    selectedGuestData? : GuestsData
+    selectedGuestData? : GuestsData,
+    zoomDegree : number
 }
