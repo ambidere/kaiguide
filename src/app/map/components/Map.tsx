@@ -40,7 +40,7 @@ export default class Map extends React.Component<MapProps> {
     }
 
     render() {
-        let { zoomDegree, center } = this.props;
+        let { zoomDegree, center, showDetails } = this.props;
         return (
             <div style={wrapperStyles}>
                 <Motion
@@ -72,7 +72,7 @@ export default class Map extends React.Component<MapProps> {
                                 <Geographies geography={world} disableOptimization>
                                 {(geographies : any[], projection : GeoProjection) => geographies.map((geography, i) =>  (
                                     <Geography
-                                        onClick={() => { console.log(geography) }}
+                                        onClick={() => { showDetails() }}
                                         key={i}
                                         data-tip={geography.properties.name}
                                         geography={geography}

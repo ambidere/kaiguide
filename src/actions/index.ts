@@ -8,6 +8,8 @@ export enum AppActionTypes {
     ZOOM_OUT = "ZOOM_OUT",
     SET_CENTER = "SET_CENTER",
     RESET_ZOOM = "RESET_ZOOM",
+    SHOW_MODAL = "SHOW_MODAL",
+    HIDE_MODAL = "HIDE_MODAL",
 }
 
 export interface SelectGuestAction extends Action<typeof AppActionTypes.SELECT_GUEST> {
@@ -24,7 +26,12 @@ export interface ZoomOutAction extends Action<typeof AppActionTypes.ZOOM_OUT> {}
 
 export interface ResetZoomAction extends Action<typeof AppActionTypes.RESET_ZOOM> {}
 
-export type AppActions = SelectGuestAction | ZoomInAction | ZoomOutAction | ResetZoomAction | SetCenterAction;
+export interface ShowModalAction extends Action<typeof AppActionTypes.SHOW_MODAL> {}
+
+export interface HideModalAction extends Action<typeof AppActionTypes.HIDE_MODAL> {}
+
+export type AppActions = SelectGuestAction | ZoomInAction | ZoomOutAction | ResetZoomAction | SetCenterAction
+    | ShowModalAction | HideModalAction;
 
 export function selectGuest(guest : GuestsData) : SelectGuestAction {
     return {
@@ -75,3 +82,14 @@ export function setCenter(center : [number, number]) : SetCenterAction {
     }
 }
 
+export function showModal() : ShowModalAction {
+    return {
+        type : AppActionTypes.SHOW_MODAL
+    }
+}
+
+export function hideModal() : HideModalAction {
+    return {
+        type : AppActionTypes.HIDE_MODAL
+    }
+}

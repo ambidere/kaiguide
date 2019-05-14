@@ -9,27 +9,33 @@ import { GuestsData } from '../objects/GuestsData';
 export interface AppState {
   selectedGuestData : GuestsData | null,
   zoomDegree : number,
-  center : [number, number]
+  center : [number, number],
+  isModalVisible : boolean
 }
 
 const initialState : AppState = {
   selectedGuestData : null,
   zoomDegree : 1,
-  center : [0, 20]
+  center : [0, 20],
+  isModalVisible : false
 }
 
 const appReducer = (state = initialState, action : AppActions) : AppState => {
     switch (action.type) {
       case AppActionTypes.SELECT_GUEST:
-        return {...state, selectedGuestData : action.payload}
+        return {...state, selectedGuestData : action.payload};
       case AppActionTypes.ZOOM_IN:
-        return {...state, zoomDegree : state.zoomDegree < 6 ? state.zoomDegree + 0.5 : state.zoomDegree}
+        return {...state, zoomDegree : state.zoomDegree < 10 ? state.zoomDegree + 0.5 : state.zoomDegree};
       case AppActionTypes.ZOOM_OUT:
-        return {...state, zoomDegree : state.zoomDegree > 1 ? state.zoomDegree - 0.5 : state.zoomDegree}
+        return {...state, zoomDegree : state.zoomDegree > 1 ? state.zoomDegree - 0.5 : state.zoomDegree};
       case AppActionTypes.SET_CENTER:
-        return {...state, center : action.payload}
+        return {...state, center : action.payload};
       case AppActionTypes.RESET_ZOOM:
-        return {...state, zoomDegree : 1, center : [0,20]}
+        return {...state, zoomDegree : 1, center : [0,20]};
+      case AppActionTypes.SHOW_MODAL:
+        return {...state, isModalVisible : true}
+      case AppActionTypes.HIDE_MODAL:
+        return {...state, isModalVisible : false}
       default:
         return state
     }

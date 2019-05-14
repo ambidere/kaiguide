@@ -4,5 +4,6 @@ export default interface MapProps {
     selectedGuestData? : GuestsData,
     zoomDegree : number,
     center: [number, number],
-    setCenter : (center : [number, number]) => void
+    setCenter : (center : [number, number]) => void,
+    showDetails : () => void
 }
