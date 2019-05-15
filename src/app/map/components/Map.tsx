@@ -27,8 +27,8 @@ export default class Map extends React.Component<MapProps> {
     getColorValueFromSelectedData(interactionState : MapInteractionState, geographyId : string) {
         let { selectedGuestData } = this.props;
         let numericValue = -1;
-        if (selectedGuestData) {
-            numericValue = selectedGuestData[geographyId];
+        if (selectedGuestData && selectedGuestData.events && selectedGuestData.events[geographyId]) {
+            numericValue = selectedGuestData.events[geographyId].length;
         }
         return this.getFillColorBasedOnState(interactionState, numericValue);
     }
@@ -37,6 +37,22 @@ export default class Map extends React.Component<MapProps> {
         let { setCenter } = this.props;
         setCenter(newCenter);
         console.log(newCenter)
+    }
+
+    onGeographyClick(geography : any) {
+        let { showDetails, selectedGuestData } = this.props;
+        if (selectedGuestData && selectedGuestData.events && selectedGuestData.events[geography.id]) {
+            console.log("COUNTRY CLICKED: " + selectedGuestData.events[geography.id].length);
+            console.log({
+                geography : geography,
+                guestData : selectedGuestData
+            });
+            showDetails({
+                geography : geography,
+                guestData : selectedGuestData
+            });
+        }
+        
     }
 
     render() {
@@ -72,7 +88,7 @@ export default class Map extends React.Component<MapProps> {
                                 <Geographies geography={world} disableOptimization>
                                 {(geographies : any[], projection : GeoProjection) => geographies.map((geography, i) =>  (
                                     <Geography
-                                        onClick={() => { showDetails() }}
+                                        onClick={() => { this.onGeographyClick(geography); }}
                                         key={i}
                                         data-tip={geography.properties.name}
                                         geography={geography}

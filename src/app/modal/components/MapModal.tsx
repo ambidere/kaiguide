@@ -3,33 +3,53 @@ import Modal from "react-bootstrap/Modal";
 import MapModalProps from "./MapModalProps";
 import Button from "react-bootstrap/Button";
 import './MapModal.css';
+import { Geography } from "react-simple-maps";
 
 export default class MapModal extends React.Component<MapModalProps> {
-    render() {
-        let { isVisible, onClose } = this.props;
-
+    renderFlag() {
+        let { details } = this.props;
+        if (!details && !details.geography.properties) {
+            return (<React.Fragment></React.Fragment>);
+        }
+        let { properties } = details.geography;
         return (
-            <Modal
-                show={isVisible}
-                onHide={() => { onClose() }}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered>
-                <Modal.Header closeButton>
-                    Wasuta (The World Standard)
-                </Modal.Header>
-                <Modal.Body>
-                    <h4>Centered Modal</h4>
-                    <p>
-                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-                        ac consectetur ac, vestibulum at eros.
-                    </p>
-                </Modal.Body>
-                <Modal.Footer>
-                <Button onClick={() => { onClose() }}>Close</Button>
-                </Modal.Footer>
-            </Modal>
+            <h4>
+                <img src={`/flags/${properties.name.toLowerCase()}.svg`} width={20} height={20} alt={properties.name}></img>
+                {properties.name}
+            </h4>
         );
+    }
+
+    render() {
+        let { isVisible, onClose, details } = this.props;
+        
+        if (details) {
+            let { geography, guestData } = details;
+            let { events, enName, jpName } = guestData;
+            return (
+                <Modal
+                    show={isVisible}
+                    onHide={() => { onClose() }}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered>
+                    <Modal.Header closeButton>
+                        {jpName} ({enName})
+                    </Modal.Header>
+                    <Modal.Body>
+                        { this.renderFlag() }
+                        <p>
+                            {JSON.stringify(events[geography.id])}
+                        </p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button onClick={() => { onClose() }}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+            );
+        }
+        else {
+            return <React.Fragment/>;
+        }
     }
 }

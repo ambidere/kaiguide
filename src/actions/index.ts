@@ -10,6 +10,7 @@ export enum AppActionTypes {
     RESET_ZOOM = "RESET_ZOOM",
     SHOW_MODAL = "SHOW_MODAL",
     HIDE_MODAL = "HIDE_MODAL",
+    SET_DETAILS_FOR_MODAL = "SET_DETAILS_FOR_MODAL"
 }
 
 export interface SelectGuestAction extends Action<typeof AppActionTypes.SELECT_GUEST> {
@@ -30,8 +31,12 @@ export interface ShowModalAction extends Action<typeof AppActionTypes.SHOW_MODAL
 
 export interface HideModalAction extends Action<typeof AppActionTypes.HIDE_MODAL> {}
 
+export interface SetDetailsForModalAction extends Action<typeof AppActionTypes.SET_DETAILS_FOR_MODAL> {
+    payload : { geography : any, guestData : any }
+}
+
 export type AppActions = SelectGuestAction | ZoomInAction | ZoomOutAction | ResetZoomAction | SetCenterAction
-    | ShowModalAction | HideModalAction;
+    | ShowModalAction | HideModalAction | SetDetailsForModalAction;
 
 export function selectGuest(guest : GuestsData) : SelectGuestAction {
     return {
@@ -91,5 +96,12 @@ export function showModal() : ShowModalAction {
 export function hideModal() : HideModalAction {
     return {
         type : AppActionTypes.HIDE_MODAL
+    }
+}
+
+export function setDetailsForModal(details : { geography : any, guestData : any }) : SetDetailsForModalAction {
+    return {
+        type : AppActionTypes.SET_DETAILS_FOR_MODAL,
+        payload : details
     }
 }

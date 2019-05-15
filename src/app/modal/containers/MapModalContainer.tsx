@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 
 const mapStateToProps = (state : AppState) : Partial<MapModalProps> => {
     return {
-        isVisible : state.isModalVisible
+        isVisible : state.isModalVisible,
+        details : state.details
     }
 }
 

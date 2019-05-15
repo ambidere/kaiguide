@@ -1,4 +1,5 @@
 export default interface MapModalProps {
     isVisible : boolean,
-    onClose : () => void
+    onClose : () => void,
+    details : { geography : any, guestData : any }
 }

@@ -5,5 +5,5 @@ export default interface MapProps {
     zoomDegree : number,
     center: [number, number],
     setCenter : (center : [number, number]) => void,
-    showDetails : () => void
+    showDetails : (details : { geography : any, guestData : any }) => void
 }

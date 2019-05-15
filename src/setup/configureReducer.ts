@@ -10,14 +10,16 @@ export interface AppState {
   selectedGuestData : GuestsData | null,
   zoomDegree : number,
   center : [number, number],
-  isModalVisible : boolean
+  isModalVisible : boolean,
+  details : { geography : any, guestData : any }
 }
 
 const initialState : AppState = {
   selectedGuestData : null,
   zoomDegree : 1,
   center : [0, 20],
-  isModalVisible : false
+  isModalVisible : false,
+  details : null
 }
 
 const appReducer = (state = initialState, action : AppActions) : AppState => {
@@ -36,6 +38,8 @@ const appReducer = (state = initialState, action : AppActions) : AppState => {
         return {...state, isModalVisible : true}
       case AppActionTypes.HIDE_MODAL:
         return {...state, isModalVisible : false}
+      case AppActionTypes.SET_DETAILS_FOR_MODAL:
+        return {...state, details : action.payload}
       default:
         return state
     }
