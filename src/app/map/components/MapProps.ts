@@ -1,9 +1,10 @@
-import { GuestsData } from "../../../objects/GuestsData";
+import GuestData from "../../objects/GuestData";
+import GeographyData from "../../objects/GeographyData";
 
 export default interface MapProps {
-    selectedGuestData? : GuestsData,
+    selectedGuestData? : GuestData,
     zoomDegree : number,
     center: [number, number],
     setCenter : (center : [number, number]) => void,
-    showDetails : (details : { geography : any, guestData : any }) => void
+    showDetails : (details : { geography : GeographyData, guestData : GuestData }) => void
 }

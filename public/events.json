@@ -2,24 +2,81 @@
     "wasuta" : {
         "enName" : "The World Standard",
         "jpName" : "わーすた",
+        "description": "",
         "events" : {
             "CAN" : [
                 {
-                    "name" : "Anime North",
-                    "date" : "05/25/2019"
+                    "name" : "Anime North 2019",
+                    "dateStart" : "05/25/2019",
+                    "dateEnd" : "05/25/2019",
+                    "location" : "The Toronto Congress Centre Hall C, Toronto, Ontario",
+                    "link" : "https://www.animenorth.com/live/",
+                    "members" : "ALL"
                 }
             ],
-            "ESP" : [],
+            "MNG" : [
+                {
+                    "name" : "Japan Festival in Mongolia 2019",
+                    "dateStart" : "08/17/2019",
+                    "dateEnd" : "08/18/2019",
+                    "location" : "Ulaanbatar National Amusement Park, Ulaanbatar",
+                    "link" : "",
+                    "members" : "ALL"
+                }
+            ],
+            "FRA" : [
+                {
+                    "name" : "Japan Expo Paris 2017",
+                    "dateStart" : "07/06/2019",
+                    "dateEnd" : "07/09/2019",
+                    "location" : "Parc des Expositions de Paris-Nord Villepinte, Paris",
+                    "link" : "https://www.japan-expo-paris.com/en/",
+                    "members" : "ALL"
+                }
+            ],
+            "ESP" : [
+                {
+                    "name" : "Japan Weekend Madrid 2018",
+                    "dateStart" : "09/29/2019",
+                    "dateEnd" : "09/30/2019",
+                    "location" : "Pabellones 12 y 14, Feria de Madrid, Madrid",
+                    "link" : "https://japanweekend.com/madrid/en/",
+                    "members" : "ALL"
+                }
+            ],
+            "THA" : [
+                {
+                    "name" : "Japan Expo Thailand 2019",
+                    "dateStart" : "01/25/2019",
+                    "dateEnd" : "01/27/2019",
+                    "location" : "Central World Plaza, Bangkok",
+                    "link" : "http://japanexpothailand.com",
+                    "members" : "ALL"
+                },
+                {
+                    "name" : "Japan Expo Thailand 2018",
+                    "dateStart" : "01/26/2018",
+                    "dateEnd" : "01/28/2018",
+                    "location" : "Central World Plaza, Bangkok",
+                    "link" : "http://japanexpothailand.com",
+                    "members" : "ALL"
+                },
+                {
+                    "name" : "Japan Expo Thailand 2017",
+                    "dateStart" : "02/10/2019",
+                    "dateEnd" : "02/12/2019",
+                    "location" : "Central World Plaza, Bangkok",
+                    "link" : "http://japanexpothailand.com",
+                    "members" : "ALL"
+                }
+            ],
             "SGP" : [],
-            "THA" : [],
             "HKG" : [],
             "JPN" : [],
             "TWN" : [],
-            "FRA" : [],
             "VNM" : [],
             "CHN" : [],
-            "MYS" : [],
-            "MNG" : []
+            "MYS" : []
         }
     }
 }

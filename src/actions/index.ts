@@ -1,5 +1,6 @@
 import { Action, Dispatch, AnyAction } from "redux";
-import { GuestsData } from "../objects/GuestsData";
+import GeographyData from "../app/objects/GeographyData";
+import GuestData from "../app/objects/GuestData";
 // import something from '../../data/events.json'
 
 export enum AppActionTypes {
@@ -14,7 +15,7 @@ export enum AppActionTypes {
 }
 
 export interface SelectGuestAction extends Action<typeof AppActionTypes.SELECT_GUEST> {
-    payload : GuestsData
+    payload : GuestData
 }
 
 export interface SetCenterAction extends Action<typeof AppActionTypes.SET_CENTER> {
@@ -32,13 +33,13 @@ export interface ShowModalAction extends Action<typeof AppActionTypes.SHOW_MODAL
 export interface HideModalAction extends Action<typeof AppActionTypes.HIDE_MODAL> {}
 
 export interface SetDetailsForModalAction extends Action<typeof AppActionTypes.SET_DETAILS_FOR_MODAL> {
-    payload : { geography : any, guestData : any }
+    payload : { geography : GeographyData, guestData : GuestData }
 }
 
 export type AppActions = SelectGuestAction | ZoomInAction | ZoomOutAction | ResetZoomAction | SetCenterAction
     | ShowModalAction | HideModalAction | SetDetailsForModalAction;
 
-export function selectGuest(guest : GuestsData) : SelectGuestAction {
+export function selectGuest(guest : GuestData) : SelectGuestAction {
     return {
         type : AppActionTypes.SELECT_GUEST,
         payload : guest
