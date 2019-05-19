@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
 import CardColumns from "react-bootstrap/CardColumns";
 import Event from "../../objects/Event";
+import Popover from "react-bootstrap/Popover";
 
 export default class MapModal extends React.Component<MapModalProps> {
     renderFlag() {
@@ -33,7 +34,7 @@ export default class MapModal extends React.Component<MapModalProps> {
         let { geography, guestData } = details;
         let eventsForSelectedCountry : Event[] = guestData.events[geography.id];
         return (
-            <CardColumns>
+            <CardDeck>
                 { eventsForSelectedCountry.map((event, index) => (
                         // <p key={`${geography.id}_${index}`}>{JSON.stringify(event)}</p>
                         <Card>
@@ -47,7 +48,7 @@ export default class MapModal extends React.Component<MapModalProps> {
                             </Card.Body>
                         </Card>
                     )) }
-            </CardColumns>
+            </CardDeck>
             
         );
     }
@@ -66,7 +67,7 @@ export default class MapModal extends React.Component<MapModalProps> {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered>
-                    <Modal.Header closeButton>
+                    <Modal.Header style={{ fontWeight : 'bold' }} closeButton>
                         {jpName} ({enName})
                     </Modal.Header>
                     <Modal.Body>

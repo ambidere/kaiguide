@@ -4,15 +4,15 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { AppActions, AppActionTypes } from '../actions';
-import GeographyData from '../app/objects/GeographyData';
 import GuestData from '../app/objects/GuestData';
+import SelectedDetails from '../app/objects/SelectedDetails';
 
 export interface AppState {
   selectedGuestData : GuestData | null,
   zoomDegree : number,
   center : [number, number],
   isModalVisible : boolean,
-  details : { geography : GeographyData, guestData : GuestData }
+  details : SelectedDetails
 }
 
 const initialState : AppState = {

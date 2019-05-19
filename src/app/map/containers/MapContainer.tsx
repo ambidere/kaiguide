@@ -3,6 +3,9 @@ import MapProps from "../components/MapProps";
 import { connect } from "react-redux";
 import Map from "../components/Map";
 import { setCenter, showModal, setDetailsForModal } from "../../../actions";
+import GeographyData from "../../objects/GeographyData";
+import GuestData from "../../objects/GuestData";
+import SelectedDetails from "../../objects/SelectedDetails";
 
 const mapStateToProps = (state : AppState) : Partial<MapProps> => {
     
@@ -18,7 +21,7 @@ const mapDispatchToProps = (dispatch) : Partial<MapProps>  => {
         setCenter : (center : [number, number]) => {
             dispatch(setCenter(center));
         },
-        showDetails : (details : { geography : any, guestData : any }) => {
+        showDetails : (details : SelectedDetails) => {
             dispatch(setDetailsForModal(details));
             dispatch(showModal());
         }
