@@ -5,9 +5,11 @@ import Button from "react-bootstrap/Button";
 import './MapModal.css';
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
-import CardColumns from "react-bootstrap/CardColumns";
 import Event from "../../objects/Event";
-import Popover from "react-bootstrap/Popover";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import ListGroup from "react-bootstrap/ListGroup";
 
 export default class MapModal extends React.Component<MapModalProps> {
     renderFlag() {
@@ -34,22 +36,15 @@ export default class MapModal extends React.Component<MapModalProps> {
         let { geography, guestData } = details;
         let eventsForSelectedCountry : Event[] = guestData.events[geography.id];
         return (
-            <CardDeck>
+            <ListGroup variant="flush">
                 { eventsForSelectedCountry.map((event, index) => (
-                        // <p key={`${geography.id}_${index}`}>{JSON.stringify(event)}</p>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>{event.name}</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">{`${event.dateStart} - ${event.dateEnd}`}</Card.Subtitle>
-                                <Card.Text>
-                                    {event.location}
-                                </Card.Text>
-                                <Card.Link href={event.link} target="_blank">Website</Card.Link>
-                            </Card.Body>
-                        </Card>
-                    )) }
-            </CardDeck>
-            
+                    <ListGroup.Item key={index}>
+                        <a href={event.link} target="_blank" style={{ fontSize : 12 }}>{event.name}</a><br/>
+                        <span className="text-muted" style={{ fontSize : 10 }}>{`${event.dateStart} - ${event.dateEnd}`}</span><br/>
+                        <span className="text-muted" style={{ fontSize : 10 }}>{event.location}</span>
+                    </ListGroup.Item>)
+                )}
+            </ListGroup>
         );
     }
 
@@ -68,11 +63,19 @@ export default class MapModal extends React.Component<MapModalProps> {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered>
                     <Modal.Header style={{ fontWeight : 'bold' }} closeButton>
-                        {jpName} ({enName})
+                        {jpName} ({enName}) {this.renderFlag()}
                     </Modal.Header>
                     <Modal.Body>
-                        { this.renderFlag() }
-                        { this.renderIndividualEvents() }
+                        <Container>
+                            <Row>
+                                <Col lg={8}>
+                                    { this.renderIndividualEvents() }
+                                </Col>
+                                <Col lg={4}>
+                                    about wasuta
+                                </Col>
+                            </Row>
+                        </Container>
                     </Modal.Body>
                     <Modal.Footer>
                     <Button onClick={() => { onClose() }}>Close</Button>
